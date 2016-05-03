@@ -39,9 +39,14 @@ app.use(bodyParser.json({
     type: 'application/json'
 }));
 
+
 // Static files
 app.use(express.static(__dirname + '/public'));
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.route('/superhero')
     .post(superhero.post)
     .get(superhero.getAll);
